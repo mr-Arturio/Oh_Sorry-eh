@@ -15,7 +15,7 @@ export default function Header() {
           <span className="text-4xl">🍁</span>
         </div>
         <h1 className="text-3xl font-bold text-canadian">
-          Oh Sorry, eh! <br></br> Canadian Politeness Filter
+          Oh Sorry, eh! <br></br> <span className="text-red-600">Canadian</span> Politeness Filter
         </h1>
         <div className="flex items-center gap-1">
           <span className="text-4xl">🍁</span>

@@ -19,7 +19,7 @@ export default function Home() {
   const [isClient, setIsClient] = useState(false);
   const [recordedText, setRecordedText] = useState("");
 
-  const { transcriptionLoading, setAudioBlob, transcribeAudio } =
+  const { transcriptionLoading, transcribeAudio } =
     useAudioTranscription();
 
   useEffect(() => {
@@ -67,23 +67,34 @@ export default function Home() {
     return <LoadingScreen />;
   }
 
+  const fallingSvgs = ["/maple-leaf-orange.svg", "/beaver.svg", "/hockey.svg"];
+
   return (
     <main className="canadian-bg min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
       {/* Floating maple leaves */}
-      {[...Array(7)].map((_, i) => (
-        <img
-          key={i}
-          src="/maple-leaf-orange.svg"
-          alt="Maple Leaf"
-          className="floating-leaf"
-          style={{
-            left: `${10 + i * 12}%`,
-            width: `${32 + (i % 3) * 12}px`,
-            top: `${-20 - i * 10}px`,
-            animationDelay: `${i * 2}s`,
-          }}
-        />
-      ))}
+      {[...Array(18)].map((_, i) => {
+        // Pick a random SVG for each item
+        const svg = fallingSvgs[i % fallingSvgs.length];
+        const rotateLeft = i % 2 === 0;
+        const duration = 10 + (i % 3) * 3; // 10s, 13s, 16s
+        return (
+          <img
+            key={i}
+            src={svg}
+            alt="Canadian Symbol"
+            className="floating-leaf"
+            style={{
+              left: `${10 + i * 7}%`,
+              width: `${28 + (i % 5) * 12}px`,
+              top: `${-20 - i * 10}px`,
+              animationDelay: `${i * 2}s`,
+              animationName: rotateLeft ? "floatLeafLeft" : "floatLeafRight",
+              animationDuration: `${duration}s`,
+            }}
+          />
+        );
+      })}
+
       <div className="max-w-2xl w-full bg-white p-8 rounded-3xl shadow-canadian border border-canadian-red-200 relative z-10">
         <Header />
 
