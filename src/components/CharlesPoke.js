@@ -18,11 +18,10 @@ export default function CharlesPoke() {
     <div
       style={{
         position: "fixed",
-        left: "50%",
-        top: visible ? 0 : -300, // adjust based on image height
-        transform: "translateX(-50%)",
+        top: 0,
+        right: visible ? 0 : -180, // adjust based on image width
         zIndex: 50,
-        transition: "top 1s cubic-bezier(.68,-0.55,.27,1.55)",
+        transition: "right 1s cubic-bezier(.68,-0.55,.27,1.55)",
         pointerEvents: "none",
       }}
     >
@@ -32,9 +31,9 @@ export default function CharlesPoke() {
         style={{
           width: 180,
           height: "auto",
-          borderRadius: "0 0 90px 90px",
+          borderRadius: "0 0 0 90px",
           boxShadow: "0 4px 16px #0003",
-          transform: "rotate(180deg)",
+          transform: "rotate(0deg)",
         }}
       />
     </div>

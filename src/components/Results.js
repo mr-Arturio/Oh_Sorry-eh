@@ -8,7 +8,13 @@ export default function Results({ politeText, isClient }) {
   return (
     <div className="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-xl border border-green-200">
       <div className="flex items-center gap-2 mb-3">
-        <span className="text-2xl">🇨🇦</span>
+      <Image
+          src="/icons8-canada-48.png"
+          alt="Canada"
+          width={40}
+          height={28}
+          style={{ display: "inline-block" }}
+        />
         <h3 className="text-lg font-semibold text-gray-800">
           Your Polite Canadian Version:
         </h3>
