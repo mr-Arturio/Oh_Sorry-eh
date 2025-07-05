@@ -135,7 +135,8 @@ export default function VoiceRecorder({
                 d="M5 13l4 4L19 7"
               />
             </svg>
-            Audio recorded! Click "Transcribe Audio" to convert to text.
+            Audio recorded! Click &quot;Transcribe Audio&quot; to convert to
+            text.
           </div>
         )}
 
