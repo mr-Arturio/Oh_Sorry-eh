@@ -1,14 +1,17 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 export default function VoiceRecorder({
   onAudioRecorded,
   isClient,
   transcriptionLoading,
+  recordedText,
+  setRecordedText,
 }) {
   const [isRecording, setIsRecording] = useState(false);
   const [mediaRecorder, setMediaRecorder] = useState(null);
+  const [audioBlob, setAudioBlob] = useState(null);
 
   const startRecording = async () => {
     if (!isClient) return;
@@ -21,16 +24,16 @@ export default function VoiceRecorder({
       recorder.ondataavailable = (e) => chunks.push(e.data);
       recorder.onstop = () => {
         const blob = new Blob(chunks, { type: "audio/wav" });
-        onAudioRecorded(blob);
+        setAudioBlob(blob);
         stream.getTracks().forEach((track) => track.stop());
       };
 
       recorder.start();
       setMediaRecorder(recorder);
       setIsRecording(true);
+      setRecordedText(""); // Clear previous text
     } catch (err) {
       console.error("Error accessing microphone:", err);
-      // You might want to pass this error up to parent component
     }
   };
 
@@ -41,29 +44,28 @@ export default function VoiceRecorder({
     }
   };
 
+  const transcribeRecording = async () => {
+    if (!audioBlob) return;
+
+    try {
+      await onAudioRecorded(audioBlob);
+      setAudioBlob(null);
+    } catch (error) {
+      console.error("Transcription failed:", error);
+    }
+  };
+
   return (
     <div className="mb-6">
-      <div className="flex items-center gap-4 mb-4">
-        <button
-          onClick={isRecording ? stopRecording : startRecording}
-          disabled={transcriptionLoading || !isClient}
-          className={`flex items-center gap-2 px-6 py-3 rounded-full font-medium transition-all duration-200 ${
-            isRecording
-              ? "bg-canadian text-white animate-pulse-slow"
-              : "bg-canadian-red-100 text-canadian hover:bg-canadian-red-200"
-          } ${
-            transcriptionLoading || !isClient
-              ? "opacity-50 cursor-not-allowed"
-              : ""
-          }`}
-        >
-          {isRecording ? (
-            <>
-              <div className="w-4 h-4 bg-white rounded-full animate-pulse"></div>
-              Recording...
-            </>
-          ) : (
-            <>
+      <div className="space-y-4">
+        {/* Recording Controls */}
+        <div className="flex items-center gap-4">
+          {!isRecording && !audioBlob && (
+            <button
+              onClick={startRecording}
+              disabled={transcriptionLoading || !isClient}
+              className="flex items-center gap-2 px-6 py-3 rounded-full font-medium transition-all duration-200 bg-canadian-red-100 text-canadian hover:bg-canadian-red-200 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                 <path
                   fillRule="evenodd"
@@ -72,14 +74,84 @@ export default function VoiceRecorder({
                 />
               </svg>
               {isClient ? "Start Recording" : "Loading..."}
-            </>
+            </button>
           )}
-        </button>
+
+          {isRecording && (
+            <button
+              onClick={stopRecording}
+              className="flex items-center gap-2 px-6 py-3 rounded-full font-medium transition-all duration-200 bg-red-600 text-white animate-pulse-slow"
+            >
+              <div className="w-4 h-4 bg-white rounded-full animate-pulse"></div>
+              Stop Recording
+            </button>
+          )}
+
+          {audioBlob && !isRecording && (
+            <button
+              onClick={transcribeRecording}
+              disabled={transcriptionLoading}
+              className="flex items-center gap-2 px-6 py-3 rounded-full font-medium transition-all duration-200 bg-green-600 text-white hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              Transcribe Audio
+            </button>
+          )}
+        </div>
+
+        {/* Status Indicators */}
+        {isRecording && (
+          <div className="flex items-center gap-2 text-red-600">
+            <div className="w-3 h-3 bg-red-600 rounded-full animate-pulse"></div>
+            Recording... Speak now!
+          </div>
+        )}
+
+        {audioBlob && !isRecording && !transcriptionLoading && (
+          <div className="flex items-center gap-2 text-green-600">
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M5 13l4 4L19 7"
+              />
+            </svg>
+            Audio recorded! Click "Transcribe Audio" to convert to text.
+          </div>
+        )}
 
         {transcriptionLoading && (
           <div className="flex items-center gap-2 text-gray-500">
             <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-canadian"></div>
-            Transcribing...
+            Transcribing your speech...
+          </div>
+        )}
+
+        {/* Recorded Text Display */}
+        {recordedText && (
+          <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
+            <p className="text-sm text-blue-700 mb-2 font-medium">
+              Transcribed Text:
+            </p>
+            <p className="text-gray-800">{recordedText}</p>
           </div>
         )}
       </div>

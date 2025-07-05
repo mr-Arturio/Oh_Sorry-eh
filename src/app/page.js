@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import VoiceRecorder from "@/components/VoiceRecorder";
 import TextInput from "@/components/TextInput";
-import TransformButton from "@/components/TransformButton";
+
 import ErrorDisplay from "@/components/ErrorDisplay";
 import Results from "@/components/Results";
 import Footer from "@/components/Footer";
@@ -17,6 +17,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [isClient, setIsClient] = useState(false);
+  const [recordedText, setRecordedText] = useState("");
 
   const { transcriptionLoading, setAudioBlob, transcribeAudio } =
     useAudioTranscription();
@@ -54,6 +55,7 @@ export default function Home() {
   const handleAudioRecorded = async (blob) => {
     try {
       await transcribeAudio(blob, (text) => {
+        setRecordedText(text);
         setUserInput(text);
       });
     } catch (error) {
@@ -74,14 +76,15 @@ export default function Home() {
           onAudioRecorded={handleAudioRecorded}
           isClient={isClient}
           transcriptionLoading={transcriptionLoading}
+          recordedText={recordedText}
+          setRecordedText={setRecordedText}
         />
 
-        <TextInput userInput={userInput} setUserInput={setUserInput} />
-
-        <TransformButton
-          onClick={handlePoliteness}
+        <TextInput
+          userInput={userInput}
+          setUserInput={setUserInput}
+          onSubmit={handlePoliteness}
           loading={loading}
-          disabled={loading || !userInput.trim()}
         />
 
         <ErrorDisplay error={error} />
