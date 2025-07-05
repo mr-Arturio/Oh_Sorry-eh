@@ -19,8 +19,7 @@ export default function Home() {
   const [isClient, setIsClient] = useState(false);
   const [recordedText, setRecordedText] = useState("");
 
-  const { transcriptionLoading, transcribeAudio } =
-    useAudioTranscription();
+  const { transcriptionLoading, transcribeAudio } = useAudioTranscription();
 
   useEffect(() => {
     setIsClient(true);
@@ -63,6 +62,12 @@ export default function Home() {
     }
   };
 
+  const handleReset = () => {
+    setPoliteText("");
+    setUserInput("");
+    setRecordedText("");
+  };
+
   if (!isClient) {
     return <LoadingScreen />;
   }
@@ -85,7 +90,7 @@ export default function Home() {
             className="floating-leaf"
             style={{
               left: `${10 + i * 7}%`,
-              width: `${28 + (i % 5) * 12}px`,
+              width: `${32 + (i % 6) * 18}px`,
               top: `${-20 - i * 10}px`,
               animationDelay: `${i * 2}s`,
               animationName: rotateLeft ? "floatLeafLeft" : "floatLeafRight",
@@ -116,6 +121,16 @@ export default function Home() {
         <ErrorDisplay error={error} />
 
         <Results politeText={politeText} isClient={isClient} />
+
+        {politeText && (
+          <button
+            onClick={handleReset}
+            className="mt-4 bouncy-btn w-full bg-gradient-to-r from-gray-200 to-gray-300 text-canadian px-6 py-3 rounded-full font-semibold text-lg hover:from-gray-300 hover:to-gray-400 transition-all duration-200 shadow"
+            title="Start over, eh!"
+          >
+            🔄 Reset
+          </button>
+        )}
 
         <Footer />
       </div>
