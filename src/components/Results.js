@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 export default function Results({ politeText, isClient }) {
   if (!politeText) return null;
 
@@ -13,7 +15,7 @@ export default function Results({ politeText, isClient }) {
       </div>
       <div className="bg-white p-4 rounded-lg border border-green-300 mb-4">
         <p className="text-lg font-medium text-gray-800 leading-relaxed">
-          "{politeText}"
+          &quot;{politeText}&quot;
         </p>
       </div>
       <div className="flex gap-3">

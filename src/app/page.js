@@ -10,6 +10,9 @@ import Results from "@/components/Results";
 import Footer from "@/components/Footer";
 import LoadingScreen from "@/components/LoadingScreen";
 import { useAudioTranscription } from "@/hooks/useAudioTranscription";
+import ResetButton from "@/components/ResetButton";
+import GretzkyPoke from "@/components/GretzkyPoke";
+import CharlesPoke from "@/components/CharlesPoke";
 
 export default function Home() {
   const [userInput, setUserInput] = useState("");
@@ -72,10 +75,18 @@ export default function Home() {
     return <LoadingScreen />;
   }
 
-  const fallingSvgs = ["/maple-leaf-orange.svg", "/beaver.svg", "/hockey.svg"];
+  const fallingSvgs = [
+    "/maple-leaf-orange.svg",
+    "/beaver.svg",
+    "/hockey.svg",
+    "/moose.svg",
+    "/maple-2.svg",
+  ];
 
   return (
     <main className="canadian-bg min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
+      <GretzkyPoke />
+      <CharlesPoke />
       {/* Floating maple leaves */}
       {[...Array(18)].map((_, i) => {
         // Pick a random SVG for each item
@@ -91,7 +102,7 @@ export default function Home() {
             style={{
               left: `${10 + i * 7}%`,
               width: `${32 + (i % 6) * 18}px`,
-              top: `${-20 - i * 10}px`,
+              top: `${-20 - i * 50}px`,
               animationDelay: `${i * 2}s`,
               animationName: rotateLeft ? "floatLeafLeft" : "floatLeafRight",
               animationDuration: `${duration}s`,
@@ -122,15 +133,7 @@ export default function Home() {
 
         <Results politeText={politeText} isClient={isClient} />
 
-        {politeText && (
-          <button
-            onClick={handleReset}
-            className="mt-4 bouncy-btn w-full bg-gradient-to-r from-gray-200 to-gray-300 text-canadian px-6 py-3 rounded-full font-semibold text-lg hover:from-gray-300 hover:to-gray-400 transition-all duration-200 shadow"
-            title="Start over, eh!"
-          >
-            🔄 Reset
-          </button>
-        )}
+        {politeText && <ResetButton onClick={handleReset} />}
 
         <Footer />
       </div>
