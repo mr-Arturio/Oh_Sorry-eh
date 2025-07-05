@@ -68,8 +68,23 @@ export default function Home() {
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-canadian-red-50 via-white to-canadian-red-50 flex items-center justify-center p-4">
-      <div className="max-w-2xl w-full bg-white p-8 rounded-3xl shadow-canadian border border-canadian-red-200">
+    <main className="canadian-bg min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
+      {/* Floating maple leaves */}
+      {[...Array(7)].map((_, i) => (
+        <img
+          key={i}
+          src="/maple-leaf-orange.svg"
+          alt="Maple Leaf"
+          className="floating-leaf"
+          style={{
+            left: `${10 + i * 12}%`,
+            width: `${32 + (i % 3) * 12}px`,
+            top: `${-20 - i * 10}px`,
+            animationDelay: `${i * 2}s`,
+          }}
+        />
+      ))}
+      <div className="max-w-2xl w-full bg-white p-8 rounded-3xl shadow-canadian border border-canadian-red-200 relative z-10">
         <Header />
 
         <VoiceRecorder
