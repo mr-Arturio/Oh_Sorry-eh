@@ -19,9 +19,11 @@ export async function POST(request) {
     // Convert base64 audio to buffer
     const audioBuffer = Buffer.from(audioData.split(",")[1], "base64");
 
-    // Create a temporary file or use the buffer directly
+    // Create a proper file object for OpenAI API
+    const file = new File([audioBuffer], "audio.wav", { type: "audio/wav" });
+
     const transcription = await openai.audio.transcriptions.create({
-      file: new Blob([audioBuffer], { type: "audio/wav" }),
+      file: file,
       model: "whisper-1",
     });
 
