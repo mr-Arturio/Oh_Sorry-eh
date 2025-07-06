@@ -87,12 +87,11 @@ export default function Home() {
     <main className="canadian-bg min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
       <GretzkyPoke />
       <CharlesPoke />
-      {/* Floating maple leaves */}
-      {[...Array(18)].map((_, i) => {
+      {[...Array(40)].map((_, i) => {
         // Pick a random SVG for each item
         const svg = fallingSvgs[i % fallingSvgs.length];
         const rotateLeft = i % 2 === 0;
-        const duration = 10 + (i % 3) * 3; // 10s, 13s, 16s
+        const duration = 10 + (i % 3) * 4;
         return (
           <img
             key={i}
@@ -100,7 +99,7 @@ export default function Home() {
             alt="Canadian Symbol"
             className="floating-leaf"
             style={{
-              left: `${10 + i * 7}%`,
+              left: `${10 + i * 6}%`,
               width: `${32 + (i % 6) * 18}px`,
               top: `${-20 - i * 50}px`,
               animationDelay: `${i * 2}s`,

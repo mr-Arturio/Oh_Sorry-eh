@@ -4,10 +4,9 @@ export default function CharlesPoke() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    // Show Charles every 6 seconds, visible for 2 seconds
     const interval = setInterval(() => {
       setVisible(true);
-      const timeout = setTimeout(() => setVisible(false), 2000); // visible for 2 seconds
+      const timeout = setTimeout(() => setVisible(false), 1500); // visible for 1.5 seconds
       return () => clearTimeout(timeout);
     }, 6000); // repeat every 6 seconds
 
@@ -18,10 +17,10 @@ export default function CharlesPoke() {
     <div
       style={{
         position: "fixed",
-        top: 0,
-        right: visible ? 0 : -180, // adjust based on image width
+        top: visible ? 0 : -400,
+        right: 80,
         zIndex: 50,
-        transition: "right 1s cubic-bezier(.68,-0.55,.27,1.55)",
+        transition: "top 1s cubic-bezier(.68,-0.55,.27,1.55)",
         pointerEvents: "none",
       }}
     >
@@ -31,9 +30,9 @@ export default function CharlesPoke() {
         style={{
           width: 180,
           height: "auto",
-          borderRadius: "0 0 0 90px",
+          borderRadius: "90px 90px 0 0",
           boxShadow: "0 4px 16px #0003",
-          transform: "rotate(0deg)",
+          transform: "rotate(180deg)",
         }}
       />
     </div>
