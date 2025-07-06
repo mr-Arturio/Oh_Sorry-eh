@@ -28,7 +28,7 @@ export default function GretzkyPoke() {
         src="/gretzky.png"
         alt="Wayne Gretzky"
         style={{
-          width: 180,
+          width: 150,
           height: "auto",
           borderRadius: "90px 90px 0 0",
           boxShadow: "0 4px 16px #0003",

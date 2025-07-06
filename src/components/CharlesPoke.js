@@ -28,7 +28,7 @@ export default function CharlesPoke() {
         src="/Charles.png"
         alt="Charles"
         style={{
-          width: 180,
+          width: 160,
           height: "auto",
           borderRadius: "90px 90px 0 0",
           boxShadow: "0 4px 16px #0003",

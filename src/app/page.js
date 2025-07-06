@@ -101,7 +101,7 @@ export default function Home() {
             style={{
               left: `${10 + i * 6}%`,
               width: `${32 + (i % 6) * 18}px`,
-              top: `${-20 - i * 50}px`,
+              top: `${-20 - (i % 10) * 20}px`,
               animationDelay: `${i * 2}s`,
               animationName: rotateLeft ? "floatLeafLeft" : "floatLeafRight",
               animationDuration: `${duration}s`,

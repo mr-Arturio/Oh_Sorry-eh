@@ -38,7 +38,7 @@ body {
 .floating-leaf {
   position: absolute;
   pointer-events: none;
-  animation: floatLeaf 12s linear infinite;
+  animation: floatLeaf 14s linear infinite;
   opacity: 0.7;
 }
 

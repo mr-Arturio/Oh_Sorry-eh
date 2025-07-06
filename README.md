@@ -1,15 +1,15 @@
 # Oh Sorry! Politeness Filter
-Build for Ottawa "Eh I" Summer Vibe Hackathon - one day event.
+Build for Ottawa "Eh I" Summer Vibe Hackathon - one day event by [AI Tinkerers Ottawa](https://lu.ma/ai-tinkerers-ottawa?k=c). </br>
 A delightful Next.js application that transforms direct or rude statements into super polite, Canadian-style speech using AI voice input and text transformation.
 
 
 ## Features
 
-- ** Voice Input**: Record your voice and get instant transcription
-- ** AI Transformation**: Convert direct statements into polite Canadian speech
-- ** Beautiful UI**: Modern, responsive design with Canadian theming
-- ** Text-to-Speech**: Hear your polite version spoken aloud
-- ** Copy to Clipboard**: Easy sharing of your polite text
+- **Voice Input**: Record your voice and get instant transcription
+- **AI Transformation**: Convert direct statements into polite Canadian speech
+- **Beautiful UI**: Modern, responsive design with Canadian theming
+- **Text-to-Speech**: Hear your polite version spoken aloud
+- **Copy to Clipboard**: Easy sharing of your polite text
 
 ## Application view
 ![Application screenshot](./public/app_view.png)
@@ -78,5 +78,3 @@ A delightful Next.js application that transforms direct or rude statements into 
 - **Accessibility**: Proper ARIA labels and keyboard navigation
 - **Modern UI**: Clean, professional interface with excellent UX
 
-
-Made with ❤️ for the most Canadian hackathon experience!🍁
