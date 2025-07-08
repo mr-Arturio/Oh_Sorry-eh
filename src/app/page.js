@@ -99,9 +99,9 @@ export default function Home() {
             alt="Canadian Symbol"
             className="floating-leaf"
             style={{
-              left: `${10 + i * 6}%`,
+              left: `${10 + i * 5}%`,
               width: `${32 + (i % 6) * 18}px`,
-              top: `${-20 - (i % 10) * 20}px`,
+              top: `${-20 - i * 30}px`,
               animationDelay: `${i * 2}s`,
               animationName: rotateLeft ? "floatLeafLeft" : "floatLeafRight",
               animationDuration: `${duration}s`,
